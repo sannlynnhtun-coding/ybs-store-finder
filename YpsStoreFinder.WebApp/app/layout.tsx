@@ -57,7 +57,13 @@ const themeBootScript = `
   })();
 `;
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+  modal,
+}: Readonly<{
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}>) {
   return (
     <html lang="my" suppressHydrationWarning>
       <head>
@@ -69,7 +75,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className={`${fredoka.variable} ${notoMyanmar.variable} antialiased`}>
         <AppProviders>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            {children}
+            {modal}
+          </LanguageProvider>
         </AppProviders>
         <PwaRegister />
       </body>

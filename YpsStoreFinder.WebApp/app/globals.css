@@ -851,6 +851,50 @@ html[lang='my'] .yps-sidebar {
   to { transform: scale(1.8); opacity: 0; }
 }
 
+.store-details-backdrop {
+  animation: store-details-backdrop-in 180ms ease-out both;
+}
+
+.store-details-drawer {
+  animation: store-details-drawer-in 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-shadow: -18px 0 52px rgb(23 36 82 / 0.24), 0 16px 40px rgb(23 36 82 / 0.18);
+}
+
+@keyframes store-details-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes store-details-drawer-in {
+  from {
+    opacity: 0.55;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes store-details-sheet-in {
+  from {
+    opacity: 0.65;
+    transform: translateY(44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 639px) {
+  .store-details-drawer {
+    border-radius: 24px 24px 0 0;
+    animation-name: store-details-sheet-in;
+    box-shadow: 0 -16px 44px rgb(23 36 82 / 0.26);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
