@@ -128,7 +128,7 @@ export default function StoreDetailsContent({ storeId, variant = 'page' }: Store
               {!!stop.servicingBusNumbers?.length && (
                 <div className="mt-3 flex flex-wrap gap-1.5 border-t border-line pt-3">
                   {Array.from(new Set(stop.servicingBusNumbers)).map((number) => (
-                    <Link key={number} href={`/buses/${encodeURIComponent(number)}`} className={`font-mono-meta inline-flex min-h-11 min-w-11 items-center justify-center rounded-[13px] px-2 text-[10px] font-bold ${stop.ypsSupportedBusNumbers?.includes(number) ? 'bg-brand-soft text-brand' : 'bg-bus-soft text-bus'}`}>
+                    <Link key={number} href={`/buses/${encodeURIComponent(number)}`} className="font-mono-meta inline-flex min-h-11 min-w-11 items-center justify-center rounded-[13px] bg-bus-soft px-2 text-[10px] font-bold text-bus">
                       {toMmNum(number)}
                     </Link>
                   ))}

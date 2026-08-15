@@ -61,11 +61,13 @@ function LanguageToggle({ compact = false }: { compact?: boolean }) {
     <UiButton
       onClick={toggleLanguage}
       size={compact ? 'icon' : 'lg'}
-      className={`${compact ? '!h-10 !w-10 sm:!h-11 sm:!w-11' : 'w-full justify-start px-3.5'} gap-2 text-xs shadow-card`}
+      className={`${compact ? 'h-11 min-w-[44px] px-1.5 gap-1' : 'w-full justify-start px-3.5 gap-2'} text-xs shadow-card`}
       aria-label={t('languageToggle')}
     >
-      <Languages className="h-4 w-4" />
-      <span aria-hidden="true">{compact ? (language === 'my' ? 'EN' : 'MY') : (language === 'my' ? 'English' : 'မြန်မာ')}</span>
+      <Languages className="h-3.5 w-3.5 shrink-0" />
+      <span aria-hidden="true" className={compact ? 'text-[11px] font-bold tracking-tight' : undefined}>
+        {compact ? (language === 'my' ? 'EN' : 'MY') : (language === 'my' ? 'English' : 'မြန်မာ')}
+      </span>
     </UiButton>
   );
 }
@@ -80,7 +82,7 @@ function SoundToggle({ compact = false }: { compact?: boolean }) {
       size={compact ? 'icon' : 'lg'}
       tone={enabled ? 'brand' : 'neutral'}
       variant={enabled ? 'soft' : 'outline'}
-      className={`${compact ? '!h-10 !w-10 sm:!h-11 sm:!w-11' : 'w-full justify-start px-3.5'} gap-2 text-xs shadow-card`}
+      className={`${compact ? 'h-11 w-11' : 'w-full justify-start px-3.5'} gap-2 text-xs shadow-card`}
       aria-label={enabled ? t('disableSound') : t('enableSound')}
       aria-pressed={enabled}
     >
@@ -134,9 +136,9 @@ function TransitNavigation({ active }: { active: AppDestination }) {
 function MobileTopBar({ active }: { active: AppDestination }) {
   const { t } = useLanguage();
   return (
-    <header className="hud-command-bar ui-material fixed inset-x-0 top-0 z-[950] flex h-16 items-center gap-1 border-b px-2 shadow-card lg:hidden">
-      <Link href="/?view=map" className="shrink-0" aria-label={t('appTitle')}>
-        <AppMark className="h-10 w-10 sm:h-11 sm:w-11" />
+    <header className="hud-command-bar ui-material fixed inset-x-0 top-0 z-[950] grid h-16 grid-cols-[44px_minmax(0,1fr)_auto_44px_44px] items-center gap-1 border-b px-2 shadow-card lg:hidden">
+      <Link href="/?view=map" className="shrink-0 rounded-[12px]" aria-label={t('appTitle')}>
+        <AppMark className="h-11 w-11" />
       </Link>
       <nav aria-label={t('navigation')} className="flex min-w-0 flex-1 items-center justify-center gap-0.5">
         {destinations.map(({ id, href, icon: Icon }) => (
@@ -182,6 +184,7 @@ function getSnapHeight(snap: SheetSnap, viewportHeight: number) {
 export default function AppShell({ active, children, explorer, mobileSnap = 'peek', onMobileSnapChange }: AppShellProps) {
   const { t } = useLanguage();
   const [dragHeight, setDragHeight] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef<{ y: number; height: number } | null>(null);
   const viewportHeight = useSyncExternalStore(subscribeViewport, getViewportSnapshot, getViewportServerSnapshot);
   const snap = mobileSnap;
@@ -214,7 +217,9 @@ export default function AppShell({ active, children, explorer, mobileSnap = 'pee
       {explorer && (
         <aside
           aria-label={t('openExplorer')}
-          className="hud-explorer-shell ui-material fixed inset-x-0 bottom-0 z-[900] flex min-h-0 flex-col overflow-hidden border shadow-soft transition-[height] duration-300 lg:static lg:z-auto lg:!h-[100dvh] lg:border-y-0 lg:border-l-0 lg:bg-surface lg:shadow-none lg:backdrop-blur-none"
+          className={`hud-explorer-shell ui-material fixed inset-x-0 bottom-0 z-[900] flex min-h-0 flex-col overflow-hidden border shadow-soft ${
+            isDragging ? 'transition-none' : 'transition-[height] duration-300 ease-out'
+          } lg:static lg:z-auto lg:!h-[100dvh] lg:border-y-0 lg:border-l-0 lg:bg-surface lg:shadow-none lg:backdrop-blur-none`}
           style={{ height: sheetHeight }}
         >
           <button
@@ -224,6 +229,7 @@ export default function AppShell({ active, children, explorer, mobileSnap = 'pee
             aria-expanded={snap !== 'peek'}
             onPointerDown={(event) => {
               dragStart.current = { y: event.clientY, height: sheetHeight };
+              setIsDragging(true);
               event.currentTarget.setPointerCapture(event.pointerId);
             }}
             onPointerMove={(event) => {
@@ -234,8 +240,15 @@ export default function AppShell({ active, children, explorer, mobileSnap = 'pee
             onPointerUp={(event) => {
               if (!dragStart.current) return;
               event.currentTarget.releasePointerCapture(event.pointerId);
-              setNextSnap(nearestSnap(dragHeight ?? sheetHeight));
+              const finalSnap = nearestSnap(dragHeight ?? sheetHeight);
+              setIsDragging(false);
+              setNextSnap(finalSnap);
               dragStart.current = null;
+            }}
+            onPointerCancel={() => {
+              setIsDragging(false);
+              dragStart.current = null;
+              setDragHeight(null);
             }}
             onKeyDown={(event) => {
               if (event.key === 'ArrowUp') {
