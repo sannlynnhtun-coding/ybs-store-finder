@@ -5,15 +5,15 @@
   "start_url": "/?view=map",
   "id": "/",
   "display": "standalone",
-  "background_color": "#02080A",
-  "theme_color": "#FFD534",
+  "background_color": "#15224F",
+  "theme_color": "#4F72CD",
   "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/brand/yps-finder-mark.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-192x192.png",
