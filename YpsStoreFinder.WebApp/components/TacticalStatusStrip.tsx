@@ -40,13 +40,20 @@ export default function TacticalStatusStrip({
       data-state={hasError ? 'error' : isLoading ? 'busy' : 'ready'}
     >
       <div className="hud-status-heading">
-        <span className="flex min-w-0 items-center gap-2">
-          <Activity className="hud-status-heading-icon h-4 w-4 shrink-0" aria-hidden="true" />
-          <span className="truncate">{t('systemStatus')}</span>
+        <span className="hud-status-orb" aria-hidden="true">
+          <Activity className="h-4 w-4" />
         </span>
-        <span className="truncate text-right text-ink">{phase}</span>
+        <span className="min-w-0 flex-1">
+          <span className="hud-status-label block">{t('systemStatus')}</span>
+          <strong className="block truncate text-ink">{phase}</strong>
+        </span>
+        <span className="hud-store-score font-mono-meta">
+          <span className="sr-only">{t('visibleStores')}: </span>
+          <Store className="h-4 w-4" aria-hidden="true" />
+          {toMmNum(visibleStoreCount)}
+        </span>
       </div>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-2">
         <div className="hud-status-cell">
           <RadioTower className="h-4 w-4 text-bus" aria-hidden="true" />
           <span>
@@ -59,13 +66,6 @@ export default function TacticalStatusStrip({
           <span>
             <span className="hud-status-label">{t('position')}</span>
             <strong>{gpsActive ? t('gpsOn') : t('manualPosition')}</strong>
-          </span>
-        </div>
-        <div className="hud-status-cell">
-          <Store className="h-4 w-4 text-store" aria-hidden="true" />
-          <span>
-            <span className="hud-status-label">{t('visibleStores')}</span>
-            <strong className="font-mono-meta">{toMmNum(visibleStoreCount)}</strong>
           </span>
         </div>
       </div>

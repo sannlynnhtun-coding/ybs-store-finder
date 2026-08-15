@@ -98,7 +98,7 @@ function TransitNavigation({ active }: { active: AppDestination }) {
         <AppMark className="h-11 w-11 shrink-0" />
         <span className="min-w-0">
           <span className="block truncate text-sm font-bold text-ink">YPS Finder</span>
-          <span className="font-mono-meta mt-0.5 block text-[9px] font-semibold text-brand">METRO PULSE · YANGON</span>
+          <span className="mt-0.5 block text-[10px] font-semibold text-brand">YANGON JOURNEYS</span>
         </span>
       </Link>
       <p className="hud-section-label mb-2 px-3">{t('navigation')}</p>

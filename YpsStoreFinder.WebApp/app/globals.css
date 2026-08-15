@@ -5,60 +5,61 @@
 @layer base {
   :root,
   :root[data-theme='light'] {
-    --canvas: 229 235 235;
-    --surface: 246 249 248;
-    --surface-elevated: 215 226 225;
-    --ink: 10 27 30;
-    --muted: 59 80 82;
-    --line: 98 126 128;
-    --brand: 105 82 0;
-    --brand-soft: 255 229 103;
-    --brand-ink: 19 23 18;
-    --store: 154 59 24;
-    --store-soft: 255 231 216;
-    --bus: 0 91 126;
-    --bus-soft: 211 238 245;
-    --gps: 19 104 64;
-    --gps-soft: 215 242 225;
-    --route: 79 65 164;
-    --route-soft: 232 229 255;
+    --canvas: 79 114 202;
+    --surface: 249 250 255;
+    --surface-elevated: 231 236 255;
+    --ink: 48 62 132;
+    --muted: 91 103 155;
+    --line: 187 200 241;
+    --brand: 55 85 196;
+    --brand-soft: 225 232 255;
+    --brand-ink: 255 255 255;
+    --store: 184 62 93;
+    --store-soft: 255 226 235;
+    --bus: 0 119 155;
+    --bus-soft: 216 244 249;
+    --gps: 0 123 101;
+    --gps-soft: 213 246 235;
+    --route: 101 71 190;
+    --route-soft: 235 226 255;
     --danger: 174 39 53;
     --danger-soft: 255 228 231;
-    --store-action: 154 59 24;
-    --bus-action: 0 91 126;
-    --gps-action: 19 104 64;
-    --route-action: 79 65 164;
+    --store-action: 184 62 93;
+    --bus-action: 0 119 155;
+    --gps-action: 0 123 101;
+    --route-action: 101 71 190;
     --danger-action: 174 39 53;
-    --shadow: 26 53 57;
-    --map-filter: none;
+    --shadow: 27 38 106;
+    --map-filter: saturate(0.95) contrast(0.98) brightness(1.02);
   }
 
   :root[data-theme='dark'] {
-    --canvas: 2 8 10;
-    --surface: 5 17 20;
-    --surface-elevated: 10 31 34;
-    --ink: 230 247 243;
-    --muted: 142 172 171;
-    --line: 45 83 86;
-    --brand: 255 213 52;
-    --brand-soft: 52 45 4;
-    --brand-ink: 20 23 16;
-    --store: 255 140 84;
-    --store-soft: 56 27 14;
-    --bus: 78 205 228;
-    --bus-soft: 5 42 50;
-    --gps: 79 219 139;
-    --gps-soft: 8 45 28;
-    --route: 176 164 255;
-    --route-soft: 31 27 66;
-    --danger: 255 108 115;
-    --danger-soft: 59 17 23;
-    --store-action: 171 71 21;
-    --bus-action: 0 102 138;
-    --gps-action: 14 114 64;
-    --route-action: 92 74 184;
+    --canvas: 21 34 79;
+    --surface: 29 43 94;
+    --surface-elevated: 43 60 126;
+    --ink: 243 245 255;
+    --muted: 183 194 234;
+    --line: 84 104 176;
+    --brand: 148 169 255;
+    --brand-soft: 48 64 128;
+    --brand-ink: 22 31 74;
+    --store: 255 142 164;
+    --store-soft: 82 40 69;
+    --bus: 93 214 235;
+    --bus-soft: 22 69 102;
+    --gps: 85 222 183;
+    --gps-soft: 22 75 68;
+    --route: 193 172 255;
+    --route-soft: 62 46 121;
+    --danger: 255 132 145;
+    --danger-soft: 85 35 56;
+    --store-action: 181 58 91;
+    --bus-action: 0 110 148;
+    --gps-action: 0 117 94;
+    --route-action: 94 65 183;
     --danger-action: 176 40 52;
-    --shadow: 0 10 12;
+    --shadow: 5 10 38;
+    --map-filter: saturate(0.9) brightness(1.22) contrast(0.92);
   }
 
   * {
@@ -76,10 +77,10 @@
     min-width: 320px;
     margin: 0;
     background:
-      radial-gradient(circle at 85% 0%, rgb(var(--bus) / 0.05), transparent 32rem),
-      rgb(var(--canvas));
+      radial-gradient(circle at 18% 0%, rgb(119 157 255 / 0.38), transparent 31rem),
+      linear-gradient(150deg, rgb(var(--canvas)), rgb(45 72 158));
     color: rgb(var(--ink));
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-game), 'Segoe UI', sans-serif;
     font-feature-settings: 'kern' 1, 'liga' 1, 'ss01' 1;
     line-height: 1.45;
     -webkit-tap-highlight-color: transparent;
@@ -128,52 +129,58 @@
 @layer components {
   .surface-card {
     @apply border border-line bg-surface shadow-card;
-    border-radius: 4px;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    border-radius: 20px;
+    box-shadow:
+      inset 0 2px 0 rgb(255 255 255 / 0.72),
+      0 5px 0 rgb(var(--brand) / 0.22),
+      0 18px 34px rgb(var(--shadow) / 0.17);
   }
 
   .control-button {
     @apply inline-flex min-h-11 min-w-11 items-center justify-center border border-line bg-surface text-ink transition-colors hover:bg-elevated;
-    border-radius: 4px;
+    border-radius: 14px;
   }
 
   .ui-material {
-    background: rgb(var(--surface) / 0.94);
-    border-color: rgb(var(--line) / 0.82);
-    backdrop-filter: saturate(125%) blur(14px);
-    -webkit-backdrop-filter: saturate(125%) blur(14px);
+    background: rgb(var(--surface) / 0.9);
+    border-color: rgb(var(--line) / 0.7);
+    backdrop-filter: saturate(145%) blur(18px);
+    -webkit-backdrop-filter: saturate(145%) blur(18px);
   }
 
   .ui-card {
     @apply border border-line bg-surface shadow-card;
-    border-radius: 4px;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    border-radius: 20px;
     box-shadow:
-      inset 0 1px 0 rgb(var(--ink) / 0.06),
-      0 1px 2px rgb(var(--shadow) / 0.1),
-      0 12px 32px rgb(var(--shadow) / 0.12);
+      inset 0 2px 0 rgb(255 255 255 / 0.72),
+      0 4px 0 rgb(var(--brand) / 0.18),
+      0 12px 26px rgb(var(--shadow) / 0.14);
   }
 
   .ui-control {
     @apply inline-flex min-h-11 items-center justify-center border border-line bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-ink/45 hover:bg-elevated;
-    border-radius: 4px;
+    border-radius: 14px;
   }
 
   .ui-button {
-    border-radius: 4px;
-    clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
-    transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    border-radius: 14px;
+    box-shadow:
+      inset 0 2px 0 rgb(255 255 255 / 0.26),
+      0 3px 0 rgb(var(--shadow) / 0.18);
+    transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms ease;
   }
 
   .ui-button:not(:disabled):active {
-    transform: translateY(1px) scale(0.985);
+    transform: translateY(2px) scale(0.98);
+    box-shadow: inset 0 2px 0 rgb(255 255 255 / 0.18);
   }
 
   .ui-search-field {
     @apply h-12 w-full border border-line bg-surface text-base text-ink placeholder:text-muted;
-    border-radius: 3px;
-    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+    border-radius: 16px;
+    box-shadow:
+      inset 0 2px 5px rgb(var(--shadow) / 0.08),
+      0 3px 0 rgb(var(--brand) / 0.14);
   }
 
   .ui-search-field:focus-visible {
@@ -183,9 +190,9 @@
 
   .ui-page-title {
     font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
-    font-weight: 760;
-    letter-spacing: -0.035em;
-    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
   }
 
   .ui-eyebrow {
@@ -199,13 +206,12 @@
 
   .ui-segmented-control {
     @apply grid border border-line bg-elevated p-1;
-    border-radius: 4px;
+    border-radius: 16px;
   }
 
   .ui-badge {
     @apply inline-flex items-center gap-1.5 border px-2.5 py-1.5 text-[10px] font-bold;
-    border-radius: 2px;
-    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+    border-radius: 12px;
   }
 
   .ui-interactive-card {
@@ -894,5 +900,436 @@ html[lang='my'] .yps-sidebar {
   .ui-button,
   .hud-status-monitor {
     border-width: 2px;
+  }
+}
+
+/* Playful journey theme */
+.hud-grid {
+  background-color: rgb(var(--canvas));
+  background-image:
+    linear-gradient(180deg, rgb(var(--canvas) / 0.74), rgb(41 67 151 / 0.88)),
+    url('/art/yangon-transit-journey.webp');
+  background-position: center, 50% 72%;
+  background-size: cover, cover;
+}
+
+.hud-system-rail {
+  background:
+    linear-gradient(180deg, rgb(var(--surface) / 0.76), rgb(var(--surface) / 0.94) 45%, rgb(var(--surface) / 0.98)),
+    url('/art/yangon-transit-journey.webp') 51% center / auto 100%;
+  box-shadow:
+    inset -1px 0 0 rgb(255 255 255 / 0.42),
+    12px 0 38px rgb(var(--shadow) / 0.2);
+}
+
+.hud-system-rail::before {
+  background:
+    radial-gradient(circle at 14% 16%, rgb(255 255 255 / 0.75) 0 2px, transparent 3px),
+    radial-gradient(circle at 87% 31%, rgb(var(--brand) / 0.28) 0 3px, transparent 4px);
+  background-size: 100% 100%;
+}
+
+.hud-brand-lockup {
+  border-color: rgb(255 255 255 / 0.65);
+  border-radius: 20px;
+  background: rgb(var(--surface) / 0.88);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.72),
+    0 4px 0 rgb(var(--brand) / 0.2),
+    0 12px 24px rgb(var(--shadow) / 0.13);
+  clip-path: none;
+}
+
+.hud-section-label {
+  font-family: var(--font-game), 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.hud-nav-link {
+  border-radius: 15px;
+}
+
+.hud-nav-link[aria-current='page'] {
+  border-color: rgb(255 255 255 / 0.68);
+  background: rgb(var(--surface) / 0.94);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.7),
+    0 4px 0 rgb(var(--brand) / 0.22),
+    0 12px 22px rgb(var(--shadow) / 0.14);
+}
+
+.hud-nav-lock {
+  display: none;
+}
+
+.hud-command-bar {
+  background:
+    linear-gradient(90deg, rgb(var(--surface) / 0.93), rgb(var(--surface) / 0.8)),
+    url('/art/yangon-transit-journey.webp') 50% 20% / cover;
+  box-shadow:
+    inset 0 -1px 0 rgb(255 255 255 / 0.54),
+    0 8px 24px rgb(var(--shadow) / 0.22);
+}
+
+.hud-command-bar::after {
+  height: 3px;
+  background: linear-gradient(90deg, rgb(var(--brand)), rgb(107 192 216), rgb(var(--route)));
+}
+
+.hud-explorer-shell {
+  border-radius: 24px 24px 0 0;
+  border-color: rgb(255 255 255 / 0.42);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.58),
+    0 -10px 34px rgb(var(--shadow) / 0.24);
+}
+
+.hud-sheet-handle {
+  border-radius: 999px;
+  clip-path: none;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4);
+}
+
+.hud-signal-line {
+  background: linear-gradient(90deg, rgb(var(--brand)), rgb(73 197 199), rgb(var(--route)));
+}
+
+.hud-explorer-header {
+  background:
+    linear-gradient(180deg, rgb(var(--surface) / 0.78), rgb(var(--surface) / 0.96)),
+    url('/art/yangon-transit-journey.webp') 50% 28% / cover;
+}
+
+.hud-explorer-header::after {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgb(var(--store) / 0.72), transparent);
+}
+
+.hud-panel,
+.hud-alert,
+.hud-subnode,
+.hud-filter-chip {
+  border-radius: 14px;
+  clip-path: none;
+}
+
+.hud-filter-chip {
+  background: rgb(var(--surface) / 0.9);
+}
+
+.hud-filter-chip.is-active {
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.52),
+    0 3px 0 rgb(var(--shadow) / 0.16);
+}
+
+.hud-node-icon {
+  border-width: 2px;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.48),
+    0 3px 0 currentColor;
+  clip-path: none;
+}
+
+.hud-node-card {
+  border-color: rgb(255 255 255 / 0.6);
+}
+
+.hud-node-card::after {
+  inset: 5px;
+  border: 2px solid rgb(var(--store) / 0.72);
+  border-radius: 15px;
+  background: none;
+  clip-path: none;
+}
+
+.hud-node-card.is-selected {
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.78),
+    0 6px 0 rgb(var(--store) / 0.28),
+    0 18px 34px rgb(var(--shadow) / 0.2);
+}
+
+.hud-node-details {
+  background:
+    linear-gradient(135deg, rgb(var(--store-soft) / 0.72), rgb(var(--surface-elevated) / 0.7));
+}
+
+.hud-subnode {
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5);
+}
+
+.hud-skeleton {
+  border-radius: 20px;
+  clip-path: none;
+}
+
+.hud-status-monitor {
+  width: min(330px, calc(100% - 1.5rem));
+  border: 2px solid rgb(255 255 255 / 0.72);
+  border-radius: 21px;
+  background: rgb(var(--surface) / 0.94);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.72),
+    0 5px 0 rgb(var(--brand) / 0.24),
+    0 18px 36px rgb(var(--shadow) / 0.22);
+  clip-path: none;
+}
+
+.hud-status-heading {
+  min-height: 58px;
+  justify-content: flex-start;
+  border-bottom-color: rgb(var(--line) / 0.62);
+  padding: 0.6rem;
+  background: linear-gradient(120deg, rgb(var(--brand-soft) / 0.74), transparent 78%);
+  font-family: var(--font-game), 'Segoe UI', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+}
+
+.hud-status-orb {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(255 255 255 / 0.58);
+  border-radius: 12px;
+  color: rgb(var(--brand-ink));
+  background: rgb(var(--brand));
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.3),
+    0 3px 0 rgb(var(--shadow) / 0.22);
+}
+
+.hud-store-score {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgb(var(--store) / 0.28);
+  border-radius: 12px;
+  padding: 0 0.7rem;
+  color: rgb(var(--store));
+  background: rgb(var(--store-soft));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.52);
+}
+
+.hud-status-cell {
+  min-height: 48px;
+  border-right-color: rgb(var(--line) / 0.5);
+  padding: 0.45rem 0.65rem;
+}
+
+.hud-status-cell strong {
+  font-size: 0.6875rem;
+}
+
+.hud-status-monitor[data-state='busy'] .hud-status-orb {
+  animation: hud-fast-pulse 600ms ease-in-out infinite alternate;
+}
+
+.hud-map-stage {
+  background: linear-gradient(145deg, rgb(92 127 216), rgb(47 70 157));
+}
+
+.hud-map-stage::before {
+  opacity: 1;
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.06), transparent 32%),
+    radial-gradient(circle at 84% 14%, rgb(255 255 255 / 0.2) 0 2px, transparent 3px);
+  mix-blend-mode: normal;
+}
+
+.hud-map-chrome {
+  inset: 10px;
+  border: 2px solid rgb(255 255 255 / 0.68);
+  border-radius: 25px;
+  box-shadow:
+    inset 0 0 0 3px rgb(var(--brand) / 0.12),
+    0 10px 26px rgb(var(--shadow) / 0.16);
+}
+
+.hud-corner {
+  display: none;
+}
+
+.hud-map-stage[data-scanning='true'] .hud-map-chrome::after {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.84), transparent);
+  box-shadow: none;
+}
+
+.hud-selected-dossier {
+  border-radius: 20px;
+}
+
+.hud-travel-mode::before {
+  display: none;
+}
+
+.hud-travel-mode[data-selected='true'] {
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.34),
+    0 4px 0 rgb(var(--route) / 0.28),
+    0 12px 20px rgb(var(--shadow) / 0.14);
+}
+
+.hud-fastest-tag {
+  right: 6px;
+  bottom: 6px;
+  border-radius: 7px;
+  font-family: var(--font-game), 'Segoe UI', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.hud-store-marker {
+  border-width: 3px;
+  border-radius: 14px 14px 14px 5px;
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.34),
+    0 4px 0 rgb(var(--shadow) / 0.24),
+    0 10px 18px rgb(var(--shadow) / 0.3);
+  clip-path: none;
+  transform: rotate(-4deg);
+}
+
+.hud-store-marker.is-selected {
+  border-color: rgb(255 255 255);
+  filter: none;
+  transform: rotate(0) scale(1.16);
+}
+
+.hud-radar-loader {
+  border-width: 3px;
+  background:
+    radial-gradient(circle, rgb(var(--brand-soft)) 0 28%, transparent 29% 57%, rgb(var(--brand) / 0.18) 58% 61%, transparent 62%),
+    rgb(var(--surface) / 0.9);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.62),
+    0 5px 0 rgb(var(--brand) / 0.22),
+    0 16px 30px rgb(var(--shadow) / 0.18);
+}
+
+.hud-boot-screen {
+  background:
+    linear-gradient(rgb(var(--canvas) / 0.38), rgb(38 62 143 / 0.72)),
+    url('/art/yangon-transit-journey.webp') center / cover;
+}
+
+.custom-scrollbar {
+  scrollbar-color: rgb(var(--brand) / 0.7) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgb(var(--brand) / 0.62);
+}
+
+.leaflet-container,
+.tactical-map {
+  border-radius: 24px;
+}
+
+.leaflet-tile-pane {
+  filter: var(--map-filter);
+}
+
+.leaflet-popup-content-wrapper {
+  border: 2px solid rgb(255 255 255 / 0.66);
+  border-radius: 20px !important;
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.72),
+    0 5px 0 rgb(var(--brand) / 0.2),
+    0 18px 34px rgb(var(--shadow) / 0.22) !important;
+  clip-path: none;
+}
+
+.leaflet-control-zoom {
+  border: 2px solid rgb(255 255 255 / 0.62) !important;
+  border-radius: 15px !important;
+  box-shadow:
+    0 4px 0 rgb(var(--brand) / 0.2),
+    0 12px 24px rgb(var(--shadow) / 0.2) !important;
+}
+
+.leaflet-control-zoom a:first-child {
+  border-radius: 13px 13px 0 0 !important;
+}
+
+.leaflet-control-zoom a:last-child {
+  border-radius: 0 0 13px 13px !important;
+}
+
+@media (min-width: 1024px) {
+  .hud-explorer-shell {
+    border-radius: 0;
+    border-right: 1px solid rgb(255 255 255 / 0.4);
+  }
+
+  .hud-map-stage {
+    padding: 10px;
+  }
+
+  .hud-map-chrome {
+    inset: 18px;
+  }
+
+  .hud-status-monitor {
+    right: 20px;
+    top: 20px;
+  }
+
+  .hud-selected-dossier {
+    left: 20px !important;
+    top: 20px !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .hud-status-monitor {
+    border-radius: 18px;
+  }
+
+  .hud-status-heading {
+    min-height: 48px;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .hud-status-orb {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hud-store-score {
+    min-height: 30px;
+    padding-inline: 0.55rem;
+  }
+
+  .hud-status-cell {
+    min-height: 42px;
+  }
+
+  .hud-map-chrome {
+    inset: 8px;
+    border-radius: 20px;
+  }
+
+  .leaflet-container,
+  .tactical-map {
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .hud-system-rail,
+  .hud-command-bar,
+  .hud-explorer-header {
+    background: rgb(var(--surface)) !important;
   }
 }

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Noto_Sans_Myanmar } from 'next/font/google';
+import { Fredoka, Noto_Sans_Myanmar } from 'next/font/google';
 import { LanguageProvider } from '../context/LanguageContext';
 import AppProviders from '../context/AppProviders';
 import PwaRegister from '../components/PwaRegister';
@@ -9,6 +9,13 @@ const notoMyanmar = Noto_Sans_Myanmar({
   variable: '--font-myanmar',
   subsets: ['myanmar'],
   weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const fredoka = Fredoka({
+  variable: '--font-game',
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
   display: 'swap',
 });
 
@@ -29,8 +36,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#E5EBEB' },
-    { media: '(prefers-color-scheme: dark)', color: '#02080A' },
+    { media: '(prefers-color-scheme: light)', color: '#4F72CD' },
+    { media: '(prefers-color-scheme: dark)', color: '#15224F' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -60,7 +67,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="application-name" content="YPS Finder" />
       </head>
-      <body className={`${notoMyanmar.variable} antialiased`}>
+      <body className={`${fredoka.variable} ${notoMyanmar.variable} antialiased`}>
         <AppProviders>
           <LanguageProvider>{children}</LanguageProvider>
         </AppProviders>

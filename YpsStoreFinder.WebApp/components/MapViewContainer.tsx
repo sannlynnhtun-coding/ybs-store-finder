@@ -147,8 +147,8 @@ export default function MapViewContainer({
       maxBoundsViscosity: 1,
       scrollWheelZoom: true,
     });
-    const tileName = resolvedTheme === 'dark' ? 'dark_all' : 'light_all';
-    tileLayerRef.current = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${tileName}/{z}/{x}/{y}{r}.png`, {
+    const tilePath = resolvedTheme === 'dark' ? 'dark_all' : 'rastertiles/voyager';
+    tileLayerRef.current = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${tilePath}/{z}/{x}/{y}{r}.png`, {
       attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
       subdomains: 'abcd',
       maxZoom: 20,
@@ -171,8 +171,8 @@ export default function MapViewContainer({
   }, []);
 
   useEffect(() => {
-    const tileName = resolvedTheme === 'dark' ? 'dark_all' : 'light_all';
-    tileLayerRef.current?.setUrl(`https://{s}.basemaps.cartocdn.com/${tileName}/{z}/{x}/{y}{r}.png`);
+    const tilePath = resolvedTheme === 'dark' ? 'dark_all' : 'rastertiles/voyager';
+    tileLayerRef.current?.setUrl(`https://{s}.basemaps.cartocdn.com/${tilePath}/{z}/{x}/{y}{r}.png`);
   }, [resolvedTheme]);
 
   useEffect(() => {
